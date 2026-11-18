@@ -5,7 +5,7 @@ La IA (Gemini, de Google, en su plan gratuito) lee la foto, saca los productos y
 
 ## Funciones
 
-0. **Cuentas de usuario**: registro con correo y contraseña o con Google; cada usuario ve solo sus tickets.
+0. **Cuentas de usuario**: registro e inicio de sesión con correo y contraseña (el inicio con Google ya está programado y falta activarlo); cada usuario ve solo sus tickets.
 1. **Escanear ticket**: con la cámara o desde la galería.
 2. **Lectura con IA**: tienda, fecha, total y cada producto con su categoría (puedes corregir antes de guardar).
 3. **Historial**: lista de tickets guardados, con su detalle y opción de borrarlos.
@@ -15,7 +15,7 @@ La IA (Gemini, de Google, en su plan gratuito) lee la foto, saca los productos y
 ## Arquitectura
 
 ```
-[Login: correo o Google] → Supabase Auth → sesión guardada en el teléfono
+[Login: correo y contraseña] → Supabase Auth → sesión guardada en el teléfono
 [Cámara / Galería] → foto reducida (JPEG) → API de Gemini (visión) → JSON con productos
                                          └→ Cloudinary (foto guardada al confirmar)
                                                                        ↓

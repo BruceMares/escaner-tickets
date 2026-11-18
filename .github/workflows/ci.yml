@@ -33,4 +33,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar commitlint
+        run: npm install --no-save --no-package-lock @commitlint/cli@19 @commitlint/config-conventional@19
+      # En un Pull Request se revisan todos sus commits.
+      - name: Revisar los commits del Pull Request
+        if: github.event_name == 'pull_request'
+        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+      # En una subida directa se revisa el último commit (funciona aunque se reescriba la historia).
+      - name: Revisar el último commit
+        if: github.event_name == 'push'
+        run: npx commitlint --last --verbose
